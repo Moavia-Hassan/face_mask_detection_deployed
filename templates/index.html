@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Mask Detection - AI-Powered Safety Solution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <i class="fas fa-shield-virus"></i>
+                Face Mask Detection
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>AI-Powered Face Mask Detection</h1>
+            <p>Ensure safety compliance with our advanced real-time face mask detection system. Upload an image to instantly check if someone is wearing a mask properly.</p>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <h2>Upload Image</h2>
+                <form action="/predict" method="post" enctype="multipart/form-data" id="upload-form">
+                    <div class="upload-area" id="drop-zone">
+                        <div class="upload-placeholder" id="upload-placeholder">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p>Drag and drop your image here or click to browse</p>
+                            <div class="file-input-wrapper">
+                                <label for="file-upload" class="file-label">
+                                    <i class="fas fa-image"></i>
+                                    Choose Image
+                                </label>
+                                <input id="file-upload" type="file" name="file" accept="image/*" required>
+                            </div>
+                            <button type="button" class="webcam-btn" id="webcam-btn">
+                                <i class="fas fa-camera"></i>
+                                Capture from Webcam
+                            </button>
+                            <div id="selected-file-name"></div>
+                        </div>
+                        <div class="image-preview-container" id="image-preview-container" style="display: none;">
+                            <img id="image-preview" src="" alt="Preview" class="image-preview">
+                            <button type="button" class="change-image-btn" id="change-image-btn">
+                                <i class="fas fa-sync-alt"></i>
+                                Change Image
+                            </button>
+                        </div>
+                    </div>
+                    <div class="webcam-modal" id="webcam-modal" style="display: none;">
+                        <div class="webcam-modal-content">
+                            <video id="webcam-video" autoplay playsinline></video>
+                            <canvas id="webcam-canvas" style="display: none;"></canvas>
+                            <div class="webcam-controls">
+                                <button type="button" id="capture-btn" class="capture-btn">
+                                    <i class="fas fa-camera"></i> Capture
+                                </button>
+                                <button type="button" id="close-webcam-btn" class="close-webcam-btn">
+                                    <i class="fas fa-times"></i> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-search"></i>
+                        Analyze Image
+                    </button>
+                </form>
+            </div>
+
+            <div class="result-section">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Analyzing image with AI...</p>
+                </div>
+
+                {% if prediction %}
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="prediction-icon">
+                            {% if "With Mask" in prediction %}
+                            <i class="fas fa-check-circle" style="color: var(--success-color)"></i>
+                            {% else %}
+                            <i class="fas fa-exclamation-circle" style="color: var(--danger-color)"></i>
+                            {% endif %}
+                        </div>
+                        <div class="prediction-details">
+                            <div class="prediction-text">{{ prediction }}</div>
+                            <div class="confidence-text">Confidence Level: {{ confidence }}%</div>
+                        </div>
+                    </div>
+                    <img class="result-image" src="{{ image_url }}" alt="Analyzed Image">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h3 class="feature-title">Real-time Analysis</h3>
+                <p class="feature-description">Get instant results with our advanced AI model trained on thousands of images.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3 class="feature-title">High Accuracy</h3>
+                <p class="feature-description">Benefit from our highly accurate detection system with confidence scores.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-universal-access feature-icon"></i>
+                <h3 class="feature-title">Easy to Use</h3>
+                <p class="feature-description">Simple drag-and-drop interface for quick and efficient mask detection.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', path='script.js') }}"></script>
+</body>
+</html>
