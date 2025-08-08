@@ -1,0 +1,12 @@
+test_images/
+*.jpeg
+*.jpg
+*.png
+*.h5
+*.mp4
+.DS_Store
+*.zip
+*.tar.gz
+.vscode/
+__pycache__/
+*.ipynb
