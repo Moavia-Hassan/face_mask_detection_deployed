@@ -3,10 +3,13 @@ test_images/
 *.jpg
 *.png
 *.h5
-*.mp4
-.DS_Store
+*.hdf5
+*.pb
 *.zip
 *.tar.gz
-.vscode/
+.DS_Store
 __pycache__/
-*.ipynb
+.cache/
+tmp/
+tmp/**/*
+static/uploads/
