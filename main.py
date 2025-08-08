@@ -15,7 +15,12 @@ import io
 from huggingface_hub import hf_hub_download
 from tensorflow.keras.models import load_model
 
-# Download model from Hugging Face Hub
+import os
+from huggingface_hub import hf_hub_download
+
+# Set HF cache dir to avoid saving huge files in build folder
+os.environ["HF_HOME"] = "/tmp/huggingface"
+
 model_path = hf_hub_download(repo_id="moavia112/face-mask-model", filename="face_mask_model.h5")
 
 # Load the Keras model
